@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emotional Signal - Ultimate Playful</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {box-sizing:border-box;margin:0;padding:0;}
+    body {
+      font-family:'Inter',system-ui,-apple-system,sans-serif;
+      color:#6B6B6B;
+      min-height:100vh;
+      overflow-x:hidden;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255, 214, 232, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(232, 213, 242, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(184, 197, 214, 0.2) 0%, transparent 70%),
+        linear-gradient(135deg, #F5EFE6 0%, #FFF8F0 100%);
+    }
+    main{max-width:1100px;margin:0 auto;padding:40px 16px 80px;}
+    .section{margin-bottom:50px;}
+
+    .playful-badge {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      background: #FFE8F0;
+      border: 3px solid #333;
+      padding: 8px 14px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 5px 5px 0 #333;
+      transform: rotate(2deg);
+      z-index: 900;
+    }
+
+    .opening-overlay{
+      position:fixed;inset:0;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(255, 214, 232, 0.4), transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(232, 213, 242, 0.4), transparent 60%),
+        #FFF8F0;
+      display:flex;justify-content:center;align-items:center;
+      padding:40px 20px;z-index:1000;
+      overflow-y:auto;opacity:1;
+      transition:opacity .4s ease-out,visibility .4s ease-out;
+    }
+    .opening-overlay.hidden{opacity:0;visibility:hidden;}
+    .opening-box{
+      max-width:680px;
+      background:rgba(255,255,255,.94);
+      border-radius:32px;
+      padding:32px 26px;
+      box-shadow:0 8px 32px rgba(0,0,0,.16);
+      line-height:1.8;font-size:15px;
+      white-space:pre-line;
+      animation:openingIn .8s cubic-bezier(.34,1.56,.64,1) forwards;
+      transform:translateY(30px);opacity:0;
+    }
+    @keyframes openingIn{
+      0%{transform:translateY(30px) scale(.96);opacity:0;}
+      60%{transform:translateY(-4px) scale(1.01);opacity:1;}
+      100%{transform:translateY(0) scale(1);opacity:1;}
+    }
+    .opening-box-hero{
+      font-family:'DM Sans',system-ui;
+      font-size:24px;font-weight:800;letter-spacing:-.03em;
+      color:#FF5F9A;margin-bottom:16px;
+      text-shadow:0 3px 0 rgba(255,255,255,.9);
+    }
+    .opening-box-hero span{
+      display:inline-block;
+      transform:rotate(-2deg);
+      padding:4px 10px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#FFD6E8,#FFE8C7);
+      box-shadow:0 4px 10px rgba(255,107,157,.4);
+    }
+    .scroll-indicator{text-align:center;margin-top:16px;font-size:13px;opacity:.7;}
+
+    .section-header{
+      display:inline-block;background:#FFD6E8;border:4px solid #333;
+      box-shadow:8px 8px 0 #333,8px 8px 0 2px #FFD6E8;
+      padding:12px 28px;transform:rotate(-1.5deg);
+      font-family:'DM Sans',sans-serif;font-weight:800;font-size:20px;
+      letter-spacing:-.02em;margin-bottom:20px;
+    }
+
+    .emoji-header-playful{
+      width:100%;text-align:center;font-size:22px;margin-top:8px;
+      font-family:'DM Sans',system-ui;font-weight:800;
+      color:#FF5F9A;letter-spacing:-.03em;
+      text-shadow:0 2px 0 rgba(255,255,255,.9);
+    }
+    .emoji-shape-wrapper{
+      position:relative;width:100%;height:60px;margin:8px 0 10px;
+    }
+    .emoji-shape-pill{
+      position:absolute;left:50%;top:16px;
+      transform:translateX(-50%) rotate(-3deg);
+      width:260px;height:40px;border-radius:999px;
+      background:linear-gradient(135deg,#FFD6E8,#FFE8C7);
+      box-shadow:0 6px 18px rgba(255,107,157,.35),0 0 0 3px rgba(255,255,255,.9);
+      opacity:.9;
+    }
+    .emoji-shape-star{
+      position:absolute;left:18%;top:6px;width:28px;height:28px;
+      border-radius:40% 60% 55% 45%;
+      background:#FF9EC8;
+      box-shadow:0 4px 10px rgba(255,107,157,.5);
+      transform:rotate(18deg);
+    }
+    .emoji-desc{text-align:center;font-size:14px;margin:8px 0 20px;line-height:1.7;}
+    .emoji-grid{display:grid;gap:24px;perspective:1200px;}
+    @media(min-width:900px){.emoji-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:899px){.emoji-grid{grid-template-columns:repeat(2,1fr);}}
+    .emoji-card{
+      padding:24px 18px;border-radius:30px;
+      background:linear-gradient(135deg,#FFFFFF,#FFF6F0);
+      border:2px solid rgba(255,214,232,.5);
+      box-shadow:0 8px 24px rgba(255,107,157,.18);
+      cursor:pointer;
+      transition:transform .45s cubic-bezier(.34,1.56,.64,1);
+    }
+    .emoji-card:hover{transform:translateY(-6px) scale(1.04);}
+    .hamster-img{text-align:center;font-size:52px;margin-bottom:10px;}
+    .emotion-label{text-align:center;font-weight:600;}
+
+    /* MUSIC */
+    .music-card {
+      margin-top: 16px;
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255, 248, 240, 0.88);
+      backdrop-filter: blur(18px);
+      border: 2px solid rgba(255, 214, 232, 0.4);
+      box-shadow:
+        0 8px 32px rgba(255, 107, 157, 0.18),
+        inset 0 1px 2px rgba(255, 255, 255, 0.85);
+    }
+    .music-input-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    @media (min-width: 640px) {
+      .music-input-row { flex-direction: row; align-items: center; }
+    }
+    .text-input {
+      flex: 1;
+      border-radius: 20px;
+      border: 1.5px solid rgba(184, 197, 214, 0.6);
+      padding: 11px 16px;
+      font-size: 14px;
+      outline: none;
+      background: rgba(255, 255, 255, 0.95);
+    }
+    .text-input:focus {
+      border-color: #FFD6E8;
+      box-shadow:
+        0 0 0 3px rgba(255, 214, 232, 0.45),
+        0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+    .btn {
+      border: none;
+      cursor: pointer;
+      border-radius: 18px;
+      padding: 11px 18px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(145deg, #FF6B9D, #FF4757);
+      color: #fff;
+      box-shadow:
+        0 6px 20px rgba(255, 107, 157, 0.45),
+        0 4px 12px rgba(0, 0, 0, 0.18),
+        inset 0 1px 2px rgba(255, 255, 255, 0.5);
+      transition:
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow:
+        0 8px 24px rgba(255, 107, 157, 0.55),
+        0 6px 14px rgba(0, 0, 0, 0.22);
+    }
+    .btn-secondary {
+      background: linear-gradient(145deg, #B8C5D6, #9CAAC0);
+      box-shadow:
+        0 6px 18px rgba(184, 197, 214, 0.4),
+        0 4px 10px rgba(0, 0, 0, 0.14);
+    }
+    .music-embed {
+      margin-top: 12px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    }
+
+    /* EXPRESS BOX */
+    .express-card {
+      margin-top: 24px;
+      padding: 28px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 3px solid #333;
+      box-shadow:
+        10px 10px 0 #333,
+        0 10px 30px rgba(0, 0, 0, 0.18);
+    }
+    .express-title {
+      font-family: 'DM Sans', system-ui;
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 12px;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+    .express-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    .express-label { font-weight: 600; color: #555; }
+    .express-value { font-weight: 500; color: #444; }
+    .express-player {
+      margin-top: 12px;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    }
+
+    /* DIARY */
+    .diary-card {
+      margin-top: 16px;
+      padding: 28px;
+      border-radius: 28px;
+      background: rgba(255, 248, 240, 0.92);
+      border: 2px solid rgba(255, 214, 232, 0.45);
+      box-shadow:
+        0 8px 28px rgba(255, 107, 157, 0.16),
+        0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .diary-input {
+      width: 100%;
+      min-height: 160px;
+      border-radius: 20px;
+      border: 2px solid rgba(184, 197, 214, 0.6);
+      padding: 14px 16px;
+      font-size: 15px;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+      background: rgba(255, 255, 255, 0.98);
+    }
+    .diary-input:focus {
+      border-color: #FFD6E8;
+      box-shadow:
+        0 0 0 4px rgba(255, 214, 232, 0.5),
+        0 4px 18px rgba(255, 107, 157, 0.18);
+    }
+    .diary-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    /* PHOTO WALL */
+    .photo-grid {
+      display: grid;
+      gap: 22px;
+    }
+    @media (min-width: 900px) {
+      .photo-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 899px) and (min-width: 600px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 599px) {
+      .photo-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .photo-frame {
+      position: relative;
+      transform-style: preserve-3d;
+      perspective: 900px;
+      cursor: pointer;
+      transition:
+        transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .photo-frame:hover {
+      transform: translateZ(42px) rotateY(6deg) scale(1.06);
+      z-index: 10;
+    }
+    .polaroid {
+      position: relative;
+      background: linear-gradient(145deg, #ffffff, #f8f8f8);
+      border-radius: 10px;
+      padding: 14px 14px 38px;
+      box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        0 12px 32px rgba(0, 0, 0, 0.14),
+        inset 0 1px 2px rgba(255, 255, 255, 1);
+      transform: translateZ(22px);
+    }
+    .photo-slot {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #F5EFE6;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .uploaded-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: pointer;
+    }
+    .upload-trigger {
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.88);
+      border: 2px dashed #FFD6E8;
+      color: #6B6B6B;
+      font-size: 13px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .photo-caption { 
+      margin-top: 10px;
+      text-align: center; 
+    }
+    .photo-caption input {
+      border:none;
+      background:transparent;
+      text-align:center;
+      font-family:'DM Sans',system-ui;
+      font-size:14px;
+      color:#6B6B6B;
+      width:100%;
+      outline:none;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      max-width: 380px;
+      width: calc(100% - 40px);
+      padding: 14px 20px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 999;
+    }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="playful-badge">it's okay to feel ✨</div>
+
+  <div class="opening-overlay" id="openingOverlay">
+    <div class="opening-box" id="openingBox">
+      <div class="opening-box-hero"><span>Heiii imutt… selamat datang ya.</span></div>
+Aku bikin tempat ini buat kamu bisa ekspresikan diri kamu supaya kamu punya ruang buat jadi diri kamu apa adanya.
+
+Aku tau kadang kamu capek, sedih, marah, bahkan kesel sampe misuh-misuh
+dan kamu cuma pengen ada di satu tempat yang nggak nanya apa-apa.
+
+Di sini, kamu nggak perlu jelasin diri kamu ke siapa pun.
+
+Mau kamu lagi seneng, sedih, marah, kesel, misuh-misuh, kosong,
+sensi, capek, bingung, atau cuma pengen diem semuanya boleh ada di sini.
+
+Tempat ini aku bikin karena aku peduli kamu.
+kamu nggak sendirian, dan kamu aman buat
+ekspresiin apa pun dengan caramu sendiri.
+      <div class="scroll-indicator">(klik di luar kotak atau tunggu 3 detik)</div>
+    </div>
+  </div>
+
+  <main id="mainContent" style="opacity:0;transform:translateY(40px);transition:opacity .4s ease-out,transform .4s ease-out;">
+    <!-- EMOJI -->
+    <section class="section emoji-section">
+      <div class="emoji-header-playful">bagaimana perasaanmu sekarang cutiee?</div>
+      <div class="emoji-shape-wrapper">
+        <div class="emoji-shape-pill"></div>
+        <div class="emoji-shape-star"></div>
+      </div>
+      <p class="emoji-desc">
+        klik emoji yang paling ngewakilin perasaanmu sekarang cutieee. It's okeee,
+        Sekali klik aku langsung ngerti apa yang kamu lagi rasain….
+      </p>
+      <div class="emoji-grid" id="emojiGrid"></div>
+    </section>
+
+    <!-- MUSIC -->
+    <section class="section">
+      <div class="section-header">🎵 Music Expression</div>
+      <p style="margin:12px 0 18px;font-size:15px;line-height:1.6;">
+        Aku khawatir kamu sulit mengungkapkan apa yang kamu rasaIn lewat kata-kata. Jadi, coba sampaikan lewat sebuah lagu aja yaa cutiee!!!. Aku dengerin lagu yang kamu pilih untuk ngerti apa yang lagi kamu rasain.
+      </p>
+      <div class="music-card">
+        <div class="music-input-row">
+          <input
+            id="spotifyInput"
+            type="text"
+            class="text-input"
+            placeholder="Paste link lagu Spotify (track), contoh: https://open.spotify.com/track/..."
+          />
+          <button class="btn" id="setSpotifyBtn">Pilih Lagu</button>
+        </div>
+        <div style="font-size:13px;margin-top:8px;opacity:0.85;" id="musicMeta"></div>
+        <div class="music-embed" id="musicEmbed"></div>
+        <div style="text-align:right;margin-top:10px;">
+          <button class="btn btn-secondary" id="sendMusicSignalBtn" style="font-size:13px;padding:8px 14px;">
+            Kirim Sinyal Lagu
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPRESS BOX -->
+    <section class="section">
+      <div class="express-card">
+        <div class="express-title">✨ express ur self box</div>
+        <div class="express-row">
+          <div class="express-label">Emoji kamu</div>
+          <div class="express-value" id="expressEmoji">Belum ada emoji yang dipilih.</div>
+        </div>
+        <div class="express-row">
+          <div class="express-label">Lagu kamu</div>
+          <div class="express-value" id="expressSong">Belum ada lagu yang dipilih.</div>
+        </div>
+        <div class="express-player" id="expressPlayer"></div>
+      </div>
+    </section>
+
+    <!-- DIARY -->
+    <section class="section">
+      <div class="section-header">📔 Daily Diary</div>
+      <p style="margin:12px 0 18px;font-size:15px;line-height:1.6;">
+        Kamu bebas cerita apa aja di sini yaa cutiee mau serandom atau seyapping apapun itu, aku pasti dengerin.
+      </p>
+      <div class="diary-card">
+        <textarea
+          id="diaryTextarea"
+          class="diary-input"
+          placeholder="Tulis atau rekam cerita kamu di sini..."
+        ></textarea>
+
+        <div class="diary-actions">
+          <button type="button" class="btn" id="voiceToTextBtn">
+            🎙️ Rekam & Ubah Jadi Teks
+          </button>
+          <button type="button" class="btn btn-secondary" id="sendDiaryBtn">
+            ✉️ Kirim Diary
+          </button>
+        </div>
+
+        <small style="display:block;margin-top:12px;font-size:12px;opacity:0.8;line-height:1.5;">
+          Suara kamu hanya dipakai untuk diubah jadi teks di browser kamu sendiri.
+          Yang terkirim ke email cuma teksnya, bukan file audio.
+        </small>
+      </div>
+    </section>
+
+    <!-- PHOTO WALL -->
+    <section class="section">
+      <div class="section-header">📸 Little Photo Wall</div>
+      <p style="margin:12px 0 18px;font-size:15px;line-height:1.6;">
+        Cutieee, kalau kamu lagi kangen, buka bagian ini ya. Lihat foto-foto kita, biar kamu inget kalau aku selalu kangen banget sama kamu. Dan kalau kita lagi marahan, coba balik ke sini juga, supaya kita sama-sama sadar kalau kita berdua selalu berusaha biar kita tetap baik-baik aja.
+      </p>
+      <div class="photo-grid" id="photoGrid"></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Opening overlay
+    const openingOverlay = document.getElementById('openingOverlay');
+    const mainContent = document.getElementById('mainContent');
+
+    function hideOpening() {
+      if (!openingOverlay.classList.contains('hidden')) {
+        openingOverlay.classList.add('hidden');
+        mainContent.style.opacity = '1';
+        mainContent.style.transform = 'translateY(0)';
+      }
+    }
+    openingOverlay.addEventListener('click', (e) => {
+      if (e.target === openingOverlay) hideOpening();
+    });
+    setTimeout(hideOpening, 3000);
+
+    // Toast
+    const toast = document.getElementById('toast');
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ✅ FORMSPREE ENDPOINT BARU - Kirim ke akmal.firdaus.siddiq@gmail.com
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/mlggdlwl";
+    
+    async function sendSignalToFormspree(payload) {
+      try {
+        // Tambahkan timestamp yang lebih detail
+        const timestamp = new Date().toLocaleString("id-ID", {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
+        
+        // Format payload supaya mudah dibaca di email
+        const emailPayload = {
+          _subject: `[Emotional Signal] ${payload.source}`,
+          Sumber: payload.source,
+          Waktu: timestamp,
+          ...payload
+        };
+
+        const res = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(emailPayload)
+        });
+        
+        if (res.ok) {
+          showToast("Catatanmu sudah terkirim ke email ✨");
+        } else {
+          showToast("Catatan belum terkirim, coba lagi.");
+        }
+      } catch (e) {
+        console.error(e);
+        showToast("Jaringan lagi rewel, coba lagi ya.");
+      }
+    }
+
+    // Emoji
+    const emojiGrid = document.getElementById('emojiGrid');
+    const expressEmoji = document.getElementById('expressEmoji');
+    const emojiData = [
+      {key:'senang',label:'Senang',icon:'😊',visual:"hamster senyum lebar"},
+      {key:'kangen',label:'Kangen',icon:'🥺',visual:"hamster pegang hati, mata puppy"},
+      {key:'sedih',label:'Sedih',icon:'😢',visual:"hamster nangis"},
+      {key:'capek',label:'Capek',icon:'😴',visual:"hamster ngantuk"},
+      {key:'kesel',label:'Kesel',icon:'😤',visual:"hamster cemberut"},
+      {key:'marah',label:'Marah',icon:'😡',visual:"hamster marah"}
+    ];
+    emojiData.forEach(e=>{
+      const card=document.createElement('button');
+      card.type="button";
+      card.className='emoji-card';
+      card.innerHTML=`<div class="hamster-img">${e.icon}</div><div class="emotion-label">${e.label}</div>`;
+      card.addEventListener("click", () => {
+        expressEmoji.textContent = `${e.icon}  ${e.label}`;
+        sendSignalToFormspree({
+          source: "Emoji Expression",
+          Emoji: e.label + " " + e.icon,
+          Deskripsi: e.visual
+        });
+      });
+      emojiGrid.appendChild(card);
+    });
+
+    // Music
+    const spotifyInput = document.getElementById("spotifyInput");
+    const setSpotifyBtn = document.getElementById("setSpotifyBtn");
+    const musicEmbed = document.getElementById("musicEmbed");
+    const musicMeta = document.getElementById("musicMeta");
+    const sendMusicSignalBtn = document.getElementById("sendMusicSignalBtn");
+    const expressSong = document.getElementById("expressSong");
+    const expressPlayer = document.getElementById("expressPlayer");
+
+    let currentSpotifyTrackUrl = "";
+    let currentSpotifyEmbedHTML = "";
+
+    function extractTrackIdFromUrl(url) {
+      try {
+        const match = url.match(/track\/([a-zA-Z0-9]+)/);
+        return match ? match[1] : null;
+      } catch {
+        return null;
+      }
+    }
+
+    setSpotifyBtn.addEventListener("click", () => {
+      const url = spotifyInput.value.trim();
+      if (!url) {
+        showToast("Paste dulu link track Spotify yang kamu mau.");
+        return;
+      }
+      const trackId = extractTrackIdFromUrl(url);
+      if (!trackId) {
+        showToast("Kayaknya itu bukan link track Spotify yang valid.");
+        return;
+      }
+      currentSpotifyTrackUrl = url;
+      currentSpotifyEmbedHTML = `
+        <iframe
+          style="border-radius:20px"
+          src="https://open.spotify.com/embed/track/${trackId}?utm_source=generator"
+          width="100%"
+          height="152"
+          frameborder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+      `;
+      musicEmbed.innerHTML = currentSpotifyEmbedHTML;
+      musicMeta.textContent = "Lagu siap diputar. Klik play di player, lalu klik 'Kirim Sinyal Lagu' kalau mau ngirim.";
+      expressSong.textContent = "Track: " + trackId;
+      expressPlayer.innerHTML = currentSpotifyEmbedHTML;
+      showToast("Lagu sudah ditempel. Tinggal kirim sinyal kalau kamu mau.");
+    });
+
+    sendMusicSignalBtn.addEventListener("click", () => {
+      if (!currentSpotifyTrackUrl) {
+        showToast("Pilih dulu satu track Spotify sebelum kirim sinyal lagu.");
+        return;
+      }
+      sendSignalToFormspree({
+        source: "Music Expression",
+        "Link Spotify": currentSpotifyTrackUrl,
+        Pesan: "Dengarkan lagu ini untuk merasakan apa yang sedang dirasakan"
+      });
+    });
+
+    // Diary voice-to-text
+    const diaryTextarea = document.getElementById("diaryTextarea");
+    const voiceToTextBtn = document.getElementById("voiceToTextBtn");
+    const sendDiaryBtn = document.getElementById("sendDiaryBtn");
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+      recognition.lang = "id-ID";
+      recognition.continuous = false;
+      recognition.interimResults = true;
+
+      recognition.onresult = (event) => {
+        let transcript = "";
+        for (let i = 0; i < event.results.length; i++) {
+          if (event.results[i].isFinal) transcript += event.results[i][0].transcript + " ";
+        }
+        transcript = transcript.trim();
+        if (!transcript) return;
+        let current = diaryTextarea.value.trim();
+        if (current && !/[.!?]$/.test(current)) current += ". ";
+        else if (current) current += " ";
+        diaryTextarea.value = (current + transcript).trim();
+      };
+
+      recognition.onend = () => {
+        voiceToTextBtn.disabled = false;
+        voiceToTextBtn.textContent = "🎙️ Rekam & Ubah Jadi Teks";
+        showToast("Rekaman selesai, teks sudah dimasukkan ke diary.");
+      };
+
+      recognition.onerror = (event) => {
+        console.error("Speech recognition error:", event.error);
+        voiceToTextBtn.disabled = false;
+        voiceToTextBtn.textContent = "🎙️ Rekam & Ubah Jadi Teks";
+        showToast("Ada masalah dengan mic. Coba lagi ya.");
+      };
+    } else {
+      voiceToTextBtn.disabled = true;
+      voiceToTextBtn.textContent = "Browser belum dukung voice-to-text";
+    }
+
+    voiceToTextBtn.addEventListener("click", () => {
+      if (!recognition) return;
+      try {
+        voiceToTextBtn.disabled = true;
+        voiceToTextBtn.textContent = "Mendengarkan...";
+        recognition.start();
+        showToast("Silakan bercerita, aku lagi dengerin...");
+      } catch (e) {
+        console.error(e);
+        voiceToTextBtn.disabled = false;
+        voiceToTextBtn.textContent = "🎙️ Rekam & Ubah Jadi Teks";
+        showToast("Mic sedang dipakai. Tunggu sebentar ya.");
+      }
+    });
+
+    sendDiaryBtn.addEventListener("click", async () => {
+      const text = diaryTextarea.value.trim();
+      if (!text) {
+        showToast("Tulis dulu sesuatu di diary kamu.");
+        return;
+      }
+      await sendSignalToFormspree({
+        source: "Daily Diary",
+        "Isi Diary": text
+      });
+      diaryTextarea.value = "";
+    });
+
+    // ========== PHOTO WALL - PERBAIKAN LENGKAP ==========
+    const photoGrid = document.getElementById("photoGrid");
+    const PHOTO_FRAME_COUNT = 6;
+
+    // Fungsi kompres gambar dengan canvas
+    function compressImage(file, maxWidth = 800, quality = 0.75) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            // Resize jika terlalu besar
+            if (width > maxWidth) {
+              height = (height * maxWidth) / width;
+              width = maxWidth;
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // Konversi ke blob dengan kompresi
+            canvas.toBlob((blob) => {
+              const compressedReader = new FileReader();
+              compressedReader.onload = (ev) => resolve(ev.target.result);
+              compressedReader.onerror = reject;
+              compressedReader.readAsDataURL(blob);
+            }, 'image/jpeg', quality);
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderPhotoFrames() {
+      photoGrid.innerHTML = "";
+      
+      for (let i = 1; i <= PHOTO_FRAME_COUNT; i++) {
+        const frame = document.createElement("div");
+        frame.className = "photo-frame";
+
+        const polaroid = document.createElement("div");
+        polaroid.className = "polaroid";
+
+        const slot = document.createElement("div");
+        slot.className = "photo-slot";
+
+        const img = document.createElement("img");
+        img.className = "uploaded-photo";
+        img.alt = "Foto kamu";
+        img.style.display = "none";
+
+        const uploadBtn = document.createElement("button");
+        uploadBtn.type = "button";
+        uploadBtn.className = "upload-trigger";
+        uploadBtn.textContent = "+ Tambah / ganti foto";
+
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/*";
+        fileInput.style.display = "none";
+
+        // Handler klik untuk upload/ganti foto
+        const triggerUpload = () => {
+          fileInput.click();
+        };
+
+        uploadBtn.addEventListener("click", triggerUpload);
+        img.addEventListener("click", triggerUpload);
+
+        // Handler saat file dipilih
+        fileInput.addEventListener("change", async (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          try {
+            showToast("Mengompress foto...");
+            const compressedDataUrl = await compressImage(file);
+
+            try {
+              // Simpan dengan key unik per frame
+              localStorage.setItem(`photo_img_${i}`, compressedDataUrl);
+              
+              // Tampilkan foto
+              img.src = compressedDataUrl;
+              img.style.display = "block";
+              uploadBtn.style.display = "none";
+              
+              showToast("Foto berhasil disimpan ✨");
+            } catch (storageError) {
+              console.error("Storage error:", storageError);
+              showToast("Memori penuh. Hapus foto lain dulu ya.");
+            }
+          } catch (compressError) {
+            console.error("Compression error:", compressError);
+            showToast("Gagal memproses foto. Coba lagi.");
+          }
+
+          // Reset file input agar bisa upload file yang sama
+          fileInput.value = "";
+        });
+
+        slot.appendChild(img);
+        slot.appendChild(uploadBtn);
+        slot.appendChild(fileInput);
+
+        // Caption input
+        const captionWrap = document.createElement("div");
+        captionWrap.className = "photo-caption";
+
+        const captionInput = document.createElement("input");
+        captionInput.type = "text";
+        captionInput.placeholder = "Tulis caption kecil di sini...";
+        captionInput.maxLength = 30;
+
+        // Load foto dari localStorage saat halaman dibuka
+        const savedImg = localStorage.getItem(`photo_img_${i}`);
+        if (savedImg) {
+          img.src = savedImg;
+          img.style.display = "block";
+          uploadBtn.style.display = "none";
+        }
+
+        // Load caption dari localStorage
+        const savedCaption = localStorage.getItem(`photo_caption_${i}`);
+        if (savedCaption) {
+          captionInput.value = savedCaption;
+        }
+
+        // Simpan caption setiap kali diketik
+        captionInput.addEventListener("input", () => {
+          try {
+            localStorage.setItem(`photo_caption_${i}`, captionInput.value);
+          } catch (e) {
+            console.error("Caption save error:", e);
+          }
+        });
+
+        captionWrap.appendChild(captionInput);
+        polaroid.appendChild(slot);
+        polaroid.appendChild(captionWrap);
+        frame.appendChild(polaroid);
+        photoGrid.appendChild(frame);
+      }
+    }
+
+    // Render foto saat halaman dimuat
+    renderPhotoFrames();
+  </script>
+</body>
+</html>
